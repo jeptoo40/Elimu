@@ -8,6 +8,15 @@ const categories = [
     { price: "$2", image: "/images/pens.jpg" },
     { price: "$20", image: "/images/art.jpg" },
     { price: "$30", image: "/images/ipad.jpg" },
+
+    { price: "$3", image: "/images/BAG.jpg" },
+    { price: "$2", image: "/images/BAG1.jpg" },
+    { price: "$5", image: "/images/BOOK.jpg" },
+
+
+
+
+
   ];
 const Categories = () => {
   return (

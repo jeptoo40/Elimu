@@ -9,7 +9,7 @@ const images = [
 const Hero = () => {
   const [current, setCurrent] = useState(0);
 
-  // Change image every 5 seconds
+  // every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);

@@ -3,7 +3,11 @@ import Navbar from "../components/Navbar";
 import TopBar from "../TopBar"; 
 import Hero from "../components/Hero";
 import Categories  from "../components/Categories";
+import AdvertSection from "../components/AdvertSection";
 import ProductCategories from "../components/ProductCategories";
+import BestSeller from "../components/BestSeller";
+import Footer from "../components/Footer";
+
 
 const Home = () => {
   return (
@@ -12,7 +16,11 @@ const Home = () => {
       <Navbar />
       <Hero />
       <Categories />
+      <AdvertSection />
       <ProductCategories />
+      <BestSeller/>
+      <Footer/>
+     
     </div>
   );
 };
