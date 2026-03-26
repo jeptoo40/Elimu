@@ -9,10 +9,7 @@ const Footer = () => {
        
         <div className="footer-about">
           <h3>Easyelimu</h3>
-          <p>
-        Get everything in one place — from books to stationery to school accessories — at Elimu Easy!
-        Do all your school shopping at the best prices and save cash here!
-    </p>
+          
         </div>
 
         <div className="footer-about">
