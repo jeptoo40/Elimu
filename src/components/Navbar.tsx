@@ -1,11 +1,13 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // hamburger
+  const [showDropdown, setShowDropdown] = useState(false); 
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setShowDropdown(!showDropdown);
 
   return (
     <nav className="navbar">
@@ -14,12 +16,33 @@ const Navbar = () => {
       </div>
 
       <ul className={`nav-links ${isOpen ? "open" : ""}`}>
-        <li><NavLink to="/items" onClick={() => setIsOpen(false)}>ITEM LIST</NavLink></li>
-        <li><NavLink to="/books" onClick={() => setIsOpen(false)}>BOOKS</NavLink></li>
-        <li><NavLink to="/materials" onClick={() => setIsOpen(false)}>MATERIALS</NavLink></li>
-        <li><NavLink to="/about" onClick={() => setIsOpen(false)}>ART TOOLS</NavLink></li>
-        <li><NavLink to="/contact" onClick={() => setIsOpen(false)}>TECH TOOLS</NavLink></li>
-        <li><NavLink to="/purchase" onClick={() => setIsOpen(false)}>TOOLS TO SHOP</NavLink></li>
+
+        {/* ITEM LIST with popup */}
+        <li className="menu-item">
+          <span onClick={toggleDropdown} className="menu-title">
+            ITEM LIST
+          </span>
+
+          {showDropdown && (
+            <ul className="dropdown">
+              <li>
+                <NavLink to="/Articles">Articles</NavLink>
+              </li>
+              <li>
+                <NavLink to="/Storybooks">Story Books</NavLink>
+              </li>
+              <li>
+                <NavLink to="/Setbooks">Set Books</NavLink>
+              </li>
+            </ul>
+          )}
+        </li>
+
+        <li><NavLink to="/books">BOOKS</NavLink></li>
+        <li><NavLink to="/materials">MATERIALS</NavLink></li>
+        <li><NavLink to="/Arttools">ART TOOLS</NavLink></li>
+        <li><NavLink to="/Techtools">TECH TOOLS</NavLink></li>
+        <li><NavLink to="/Purchase">TOOLS TO SHOP</NavLink></li>
       </ul>
     </nav>
   );
