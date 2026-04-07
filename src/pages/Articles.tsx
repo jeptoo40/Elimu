@@ -1,23 +1,133 @@
+import { useState } from "react";
+import TopBar from "../TopBar";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
-const Articles = () => {
-    const books = [
-      { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
-      { id: 2, title: "1984", author: "George Orwell" },
-      { id: 3, title: "To Kill a Mockingbird", author: "Harper Lee" },
-    ];
+const ArticleItems = [
+  { name: "Educators", image: "/images/e1.jpg", price: "KSh 950", category: "Education" },
+
+  { name: " Lindsay", image: "/images/pas2.jpg", price: "KSh 100", category: "Articles" },
   
-    return (
-      <div className="books-page">
-        <h1>Articles</h1>
-        <ul>
-          {books.map((book) => (
-            <li key={book.id}>
-              <strong>{book.title}</strong> by {book.author}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+  { name: "School Trip",image: "/images/n1.jpg", price: "KSh 1150", category: "Novels" },
+  
+  { image: "/images/bs2.jpg", price: "KSh 700", category: "Education" },
+
+  { name: " Rethinking", image: "/images/pas1.jpg", price: "KSh 50", category: "Articles" },
+ 
+  { image: "/images/n2.jpg", price: "KSh 550", category: "Novels" },
+
+  { name: " The Thief", image: "/images/pas3.jpg", price: "KSh 100", category: "Articles" },
+  { image: "/images/e2.jpg", price: "KSh 2000", category: "Education" },
+  
+  { name: " The Passion", image: "/images/pas.jpg", price: "KSh 750", category: "Articles" },
+  
+  { name:"Motivation", image: "/images/m3.jpg", price: "KSh 1000", category: "Education" },
+ 
+];
+
+const phoneNumber = "254724491544";
+
+const categories = ["All",  "Articles", "Novels", "Education"];
+
+const ArticleTools = () => {
+  const [sort, setSort] = useState("default");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // Filter by category
+  const filteredItems = selectedCategory === "All"
+    ? ArticleItems
+    : ArticleItems.filter((item) => item.category === selectedCategory);
+
+  // Sorting function
+  const sortedItems = () => {
+    if (sort === "price-low") {
+      return [...filteredItems].sort(
+        (a, b) => parseInt(a.price.replace(/\D/g, "")) - parseInt(b.price.replace(/\D/g, ""))
+      );
+    }
+    if (sort === "price-high") {
+      return [...filteredItems].sort(
+        (a, b) => parseInt(b.price.replace(/\D/g, "")) - parseInt(a.price.replace(/\D/g, ""))
+      );
+    }
+    return filteredItems;
   };
-  
-  export default Articles;
+
+  const handleWhatsApp = (price, name) => {
+    const message = `Hello, I'm interested in ${name} priced at ${price}. How can I place my order?`;
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  };
+
+  return (
+    <>
+      <TopBar />
+      <Navbar />
+
+      <section className="Article-tools-section">
+  <h2>Our Articles</h2>
+
+  <div className="Article-container">
+    
+    {/* SIDEBAR */}
+    <div className="Article-sidebar">
+      <div className="sidebar-box">
+        <h3>Categories</h3>
+
+        {categories.map((cat, idx) => (
+          <div
+            key={idx}
+            className={`sidebar-item ${
+              selectedCategory === cat ? "active" : ""
+            }`}
+            onClick={() => setSelectedCategory(cat)}
+          >
+            {cat}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* MAIN CONTENT */}
+    <div className="Article-main">
+      
+      {/* Top bar (sorting like Schoolmall) */}
+      <div className="Article-topbar">
+        <select onChange={(e) => setSort(e.target.value)}>
+          <option value="default">Default sorting</option>
+          <option value="price-low">Sort by price: low to high</option>
+          <option value="price-high">Sort by price: high to low</option>
+        </select>
+      </div>
+
+      {/* PRODUCT GRID */}
+      <div className="Article-tools-grid">
+        {sortedItems().map((item, index) => (
+         <div className="Article-tools-card" key={index}>
+         <img src={item.image} alt={item.name} />
+       
+         <p className="tool-name">{item.name}</p>
+         <p className="price">{item.price}</p>
+       
+         <button className="add-to-cart">Add to cart</button>
+       
+         <button 
+           className="whatsapp-btn"
+           onClick={() => handleWhatsApp(item.price, item.name)}
+         >
+           Order via WhatsApp
+         </button>
+       </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+      <Footer />
+    </>
+  );
+};
+
+export default ArticleTools;
